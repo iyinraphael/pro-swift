@@ -93,3 +93,30 @@ for case let (theirNames, theirPasscode) in users {
 for case let (theName, "Pythonic") in users {
     print("User \(theName) has the password \"Pythonic\" ")
 }
+
+
+
+//MARK: - Matching optionals
+let optionalName: String? = "twostraws"
+let optionalPassword: String? = "fr0stles"
+
+switch ( optionalName, optionalPassword) {
+case let (.some(optionalN), .some(optionalP)):
+    print("Hello, \(optionalN)")
+case let (.some(optionN2), .none):
+    print("Please enter a password")
+default:
+    print("who are you?")
+}
+
+import Foundation
+
+let data: [Any?] = ["Bill", nil, 69, "Ted"]
+
+for case let .some(datum) in data {
+    print(datum)
+}
+
+for case let datum? in data {
+    print(datum)
+}
