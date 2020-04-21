@@ -74,4 +74,22 @@ print(fizzbuzz(15))
 
 
 
-//MArk=
+//MARK: - Basic Loops
+let iyin = (name: "jabread", password: "UrbanPlan")
+let aji = (name: "makin", password: "Pythonic" )
+let taylor = (name: "taylor", password: "Pythonic")
+
+let users = [iyin, aji, taylor]
+
+for user in users {
+    print(user.name)
+}
+
+for case let (theirNames, theirPasscode) in users {
+    print("User \(theirNames) has the passowrd \(theirPasscode) urbanPlan")
+}
+
+//This filters the users array so that only items with Pythonic
+for case let (theName, "Pythonic") in users {
+    print("User \(theName) has the password \"Pythonic\" ")
+}
