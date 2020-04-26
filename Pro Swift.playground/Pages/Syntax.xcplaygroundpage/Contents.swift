@@ -251,3 +251,19 @@ for name in celebrities where !name.hasPrefix("Michael") {
 for name in celebrities where name.hasPrefix("Michael") && name.count == 13 {
     print(name)
 }
+
+
+
+
+//MARk: - Nil Coalescing
+
+let optionalNameT: String? = "Taylor"
+let unwrappedName = optionalNameT ?? "Anonymous"
+
+print(unwrappedName)
+
+let nilName: String? = nil
+let anonyName = nilName ?? "Anonymous"
+
+let savedText = (try? String(contentsOfFile: "saved.txt")) ?? "Hello, world!"
+print(savedText)
