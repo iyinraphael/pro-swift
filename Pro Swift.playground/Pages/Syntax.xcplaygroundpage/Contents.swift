@@ -1,6 +1,7 @@
 //MARK: - Basic Switch
-
 //Working with one value
+
+
 let name = "twostraws"
 
 switch name {
@@ -255,7 +256,7 @@ for name in celebrities where name.hasPrefix("Michael") && name.count == 13 {
 
 
 
-//MARk: - Nil Coalescing
+//MARK: - Nil Coalescing
 
 let optionalNameT: String? = "Taylor"
 let unwrappedName = optionalNameT ?? "Anonymous"
@@ -267,3 +268,128 @@ let anonyName = nilName ?? "Anonymous"
 
 let savedText = (try? String(contentsOfFile: "saved.txt")) ?? "Hello, world!"
 print(savedText)
+
+
+//MARK: - Guard. Also guard keeps optiona; unwraps in scope, so variable stays around within the method
+func giveAwardTo(name: String) {
+    guard name == "Taylor swift"  else {
+        print("No way!")
+        
+        return
+    }
+    print("Congratulations, \(name) !")
+}
+
+giveAwardTo(name: "Taylor Swift")
+
+for i in 1...100 {
+    guard i % 8 == 0 else { continue }
+    
+    print(i)
+}
+
+for i in 1...100 where i % 8 == 0 {
+    print(i)
+}
+
+
+//MARK: - Lazy loading
+
+class Singer {
+    
+    let name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    func reversedName() -> String {
+        return "\(name.uppercased()) backwards is \(String(name.uppercased().reversed()))!"
+    }
+}
+
+let taylorSinger = Singer(name: "Taylor Swift")
+print(taylorSinger.reversedName())
+
+let fibonacciNumbers = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+let evenFibonacci = fibonacciNumbers.filter { $0 % 2 == 0 }
+
+print(evenFibonacci)
+
+
+class SingerLazy {
+    
+    let name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    /**     The property is now lazy, which means the code inside the closure will be executed
+            only the first time we read the reversedName property.
+    **/
+    lazy var reversedName: String = {
+        return "\(self.name.uppercased()) backwards is \(String(name.uppercased().reversed()))!"
+    }()
+}
+
+let taylorLazySinger = SingerLazy(name: "Taylor Swift")
+
+print(taylorLazySinger.reversedName)
+
+//MARK: - Lazy functions
+class SingerLazyFunc {
+    
+    let name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    lazy var reversedName: String = getReversedName()
+    
+    private func getReversedName() -> String {
+        return "\(self.name.uppercased()) backwards is \(String(name.uppercased().reversed()))!"
+    }
+}
+
+let taylorLazyFunc = SingerLazyFunc(name: "Taylor Swift")
+print(taylorLazyFunc.reversedName)
+
+
+//MARK: - Lazy Singletons
+class MusicPlayer {
+    
+    init() {
+        print("Ready to play songs!")
+    }
+}
+
+class SingerMusic {
+    
+    static let musicPlayer = MusicPlayer()
+    
+    init() {
+        print("Creatig a new singer")
+    }
+    
+}
+
+let singerMusic = SingerMusic()
+SingerMusic.musicPlayer
+
+//MARK: - Lazy Sequences
+func fibonacci(num: Int) -> Int {
+    
+    if num < 2 {
+        return num
+    } else {
+        return fibonacci(num: num - 1) + fibonacci(num: num - 2)
+    }
+}
+
+let fibonacciSequence = (0...20).map(fibonacci)
+print(fibonacciSequence[10])
+
+let fibonacciSequence2 = (0...199).lazy.map(fibonacci)
+print(fibonacciSequence2, [19])
